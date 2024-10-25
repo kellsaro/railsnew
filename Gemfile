@@ -53,4 +53,4 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "rails_icons", "~> 0.3.0"
+gem "rails_icons", "~> 0.4.0"

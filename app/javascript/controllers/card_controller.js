@@ -4,27 +4,18 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = [ "check", "label", "database", "output", "icon", "cardContent" ]
 
-  connect() {
-  }
-
-  initialize() {
-  }
-
   expandCollapse() {
     this.#toggleCardContent();
   }
 
   check() {
     if (this.checkTarget.checked) {
-      // set selectedOption value that already has the radio button component
       this.#syncOutputTarget()
       this.#disableRadios(false)
-
-      // show the card-content if it is hidden
-      this.#showCardIfHidden()
+      this.#showCardContentIfHidden()
+      this.#syncIcon()
     }
     else {
-      // set the output value to blank
       this.outputTarget.textContent = ""
       this.#disableRadios(true)
     }
@@ -81,11 +72,10 @@ export default class extends Controller {
     element.classList.toggle(className)
   }
 
-  #showCardIfHidden() {
+  #showCardContentIfHidden() {
     if (this.cardContentTarget.classList.contains("is-hidden")) {
       this.#toggle(this.cardContentTarget, "is-hidden")
     }
-    this.#syncIcon()
   }
 
   #syncIcon () {

@@ -20,11 +20,22 @@
           <div class="column is-1">
           </div>
           <div class="column is-10">
+
+            <input
+              class="input is-success is-large"
+              type="text"
+              readonly
+              value="rails new app ..."
+            />
+
             <article class="message is-fullwidth is-success">
-              <div class="message-body">
+              <div class="message-body" data-prompt-target="command">
                 rails new app lkbmosfgmnbskgnblskr
               </div>
             </article>
+
+            <button>Copy to Clipboard</button>
+
           </div>
         </div>
       </div>
@@ -38,20 +49,55 @@
         </div>
         <div class="column is-10">
 
-          <div class="card">
+          <div class="card" data-controller="card">
             <header class="card-header">
               <p class="card-header-title">
                 <label class="checkbox">
-                  <input type="checkbox" />
-                  Database
+                  <input type="checkbox" data-action="card#check" data-card-target="check"/>
+                  Database <span data-card-target="output"></span>
                 </label>
               </p>
-              <button class="card-header-icon" aria-label="more options" data-action="prompt#expandCollapse">
+              <button class="card-header-icon" aria-label="more options" data-action="card#expandCollapse">
                 <span class="icon">
-                  <i class="fa-solid fa-angle-down"></i>
+                  <i class="fa-solid fa-angle-down" data-card-target="icon"></i>
                 </span>
               </button>
             </header>
+
+            <div class="card-content is-hidden" data-card-target="cardContent">
+              <div class="content">
+                <div class="control grid">
+                  <div class="cell">
+                    <label class="radio" data-card-target="label" disabled>
+                      <input type="radio" name="database" data-action="card#selectSqlite" value="sqlite3" data-card-target="database" checked disabled/>
+                      SQLite3
+                    </label>
+                  </div>
+                  <div class="cell">
+                    <label class="radio" data-card-target="label" disabled>
+                      <input type="radio" name="database" data-action="card#selectPostgresql" value="postgresql" data-card-target="database" disabled/>
+                      PostgreSQL
+                    </label>
+                  </div>
+                  <div class="cell">
+                    <label class="radio" data-card-target="label" disabled>
+                      <input type="radio" name="database" data-action="card#selectMysql" value="mysql" data-card-target="database" disabled/>
+                      Mysql
+                    </label>
+                  </div>
+                  <div class="cell">
+                    <label class="radio" data-card-target="label" disabled>
+                      <input type="radio" name="database" data-action="card#selectTrilogy" value="trilogy" data-card-target="database" disabled/>
+                      Trilogy
+                    </label>
+                  </div>
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>

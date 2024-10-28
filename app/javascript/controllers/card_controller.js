@@ -2,14 +2,23 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="card"
 export default class extends Controller {
-  static targets = [ "check", "label", "database", "output", "icon", "cardContent" ]
+  static targets = [ "label", "database", "output", "icon", "cardContent" ]
+  static values = { checked: Number }
 
   expandCollapse() {
     this.#toggleCardContent();
   }
 
+  initialize() {
+
+  }
+
   check() {
-    if (this.checkTarget.checked) {
+    this.checkedValue = (this.checkedValue + 1) % 2;
+  }
+
+  checkedValueChanged () {
+    if (this.checkedValue % 2 == 1) {
       this.#syncOutputTarget()
       this.#disableRadios(false)
       this.#showCardContentIfHidden()

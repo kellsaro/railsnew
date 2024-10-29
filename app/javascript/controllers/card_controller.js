@@ -3,14 +3,13 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="card"
 export default class extends Controller {
   static targets = [ "label", "database", "output", "icon", "cardContent" ]
-  static values = { checked: Number }
+  static values = { checked: Number, iconStatus: Number }
 
   expandCollapse() {
+    this.iconStatusValue = (this.iconStatusValue + 1) % 2;
+
     this.#toggleCardContent();
-  }
-
-  initialize() {
-
+    this.#syncIcon()
   }
 
   check() {
@@ -18,15 +17,12 @@ export default class extends Controller {
   }
 
   checkedValueChanged () {
+    this.#syncOutputTarget()
+    this.#disableRadios(this.checkedValue % 2 == 0)
+    this.#syncIcon()
+
     if (this.checkedValue % 2 == 1) {
-      this.#syncOutputTarget()
-      this.#disableRadios(false)
-      this.#showCardContentIfHidden()
-      this.#syncIcon()
-    }
-    else {
-      this.outputTarget.textContent = ""
-      this.#disableRadios(true)
+      this.#showCardContent()
     }
   }
 
@@ -46,13 +42,21 @@ export default class extends Controller {
     this.#syncOutputTarget()
   }
 
+  iconStatusChanged() {
+    this.#toggleCardContent()
+    this.#syncIcon()
+  }
+
   #syncOutputTarget() {
-    this.databaseTargets.forEach((element, index) => {
-        if(element.checked) {
-          this.outputTarget.textContent = `--database=${element.value}`
+    this.outputTarget.textContent = ""
+    if (this.checkedValue % 2 == 1) {
+      this.databaseTargets.forEach((element, index) => {
+          if(element.checked) {
+            this.outputTarget.textContent = `--database=${element.value}`
+          }
         }
-      }
-    )
+      )
+    }
   }
 
   #disableRadios(disabled) {
@@ -74,36 +78,19 @@ export default class extends Controller {
 
   #toggleCardContent() {
     this.#toggle(this.cardContentTarget, "is-hidden")
-    this.#syncIcon()
   }
 
   #toggle(element, className) {
     element.classList.toggle(className)
   }
 
-  #showCardContentIfHidden() {
-    if (this.cardContentTarget.classList.contains("is-hidden")) {
-      this.#toggle(this.cardContentTarget, "is-hidden")
-    }
+  #showCardContent() {
+    this.cardContentTarget.classList.remove("is-hidden")
   }
 
   #syncIcon () {
-    if (this.iconTarget.classList.contains("fa-angle-up")) {
-      this.iconTarget.classList.toggle("fa-angle-up")
-    }
-
-    if (this.iconTarget.classList.contains("fa-angle-down")) {
-      this.iconTarget.classList.toggle("fa-angle-down")
-    }
-
-    let hidden = this.cardContentTarget.classList.contains("is-hidden")
-
-    if (hidden) {
-      this.iconTarget.classList.toggle("fa-angle-down")
-    }
-    else {
-      this.iconTarget.classList.toggle("fa-angle-up")
-    }
+    this.iconTarget.classList.remove("fa-angle-up", "fa-angle-down")
+    this.iconTarget.classList.add(this.iconStatusValue == 0 ? "fa-angle-down" : "fa-angle-up")
   }
 }
 

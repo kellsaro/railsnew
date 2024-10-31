@@ -12,7 +12,7 @@
   </div>
 </nav>
 
-<div data-controller="prompt">
+<div>
   <section class="hero is-small">
     <div class="hero-body">
       <div class="container">
@@ -20,21 +20,23 @@
           <div class="column is-1">
           </div>
           <div class="column is-10">
+            <div data-controller="prompt" data-prompt-database-value="">
 
-            <input
-              class="input is-success is-large"
-              type="text"
-              readonly
-              value="rails new app ..."
-            />
+              <input
+                class="input is-success is-large"
+                type="text"
+                readonly
+                value="rails new app ..."
+              />
 
-            <article class="message is-fullwidth is-success">
-              <div class="message-body" data-prompt-target="command">
-                rails new app lkbmosfgmnbskgnblskr
-              </div>
-            </article>
+              <article class="message is-fullwidth is-success">
+                <div class="message-body" data-action="database:selection@window->prompt#updateDatabase">
+                  <span data-prompt-target="command"></span>
+                </div>
+              </article>
 
-            <button>Copy to Clipboard</button>
+              <button>Copy to Clipboard</button>
+            </div>
 
           </div>
         </div>
@@ -49,45 +51,45 @@
         </div>
         <div class="column is-10">
 
-          <div class="card" data-controller="card" data-card-checked-value="0" data-card-iconStatus-value="0">
+          <div class="card" data-controller="database" data-database-checked-value="0" data-database-iconStatus-value="0">
             <header class="card-header">
               <p class="card-header-title">
                 <label class="checkbox">
-                  <input type="checkbox" data-action="card#check"/>
-                  Database <span data-card-target="output"></span>
+                  <input type="checkbox" data-action="database#check"/>
+                  Database <span data-database-target="output"></span>
                 </label>
               </p>
-              <button class="card-header-icon" aria-label="more options" data-action="card#expandCollapse">
+              <button class="card-header-icon" aria-label="more options" data-action="database#expandCollapse">
                 <span class="icon">
-                  <i class="fa-solid fa-angle-down" data-card-target="icon"></i>
+                  <i class="fa-solid fa-angle-down" data-database-target="icon"></i>
                 </span>
               </button>
             </header>
 
-            <div class="card-content is-hidden" data-card-target="cardContent">
+            <div class="card-content is-hidden" data-database-target="cardContent">
               <div class="content">
                 <div class="control grid">
                   <div class="cell">
-                    <label class="radio" data-card-target="label" disabled>
-                      <input type="radio" name="database" data-action="card#selectSqlite" value="sqlite3" data-card-target="database" checked disabled/>
+                    <label class="radio" data-database-target="label" disabled>
+                      <input type="radio" name="database" data-action="database#selectSqlite" value="sqlite3" data-database-target="database" checked disabled/>
                       SQLite3
                     </label>
                   </div>
                   <div class="cell">
-                    <label class="radio" data-card-target="label" disabled>
-                      <input type="radio" name="database" data-action="card#selectPostgresql" value="postgresql" data-card-target="database" disabled/>
+                    <label class="radio" data-database-target="label" disabled>
+                      <input type="radio" name="database" data-action="database#selectPostgresql" value="postgresql" data-database-target="database" disabled/>
                       PostgreSQL
                     </label>
                   </div>
                   <div class="cell">
-                    <label class="radio" data-card-target="label" disabled>
-                      <input type="radio" name="database" data-action="card#selectMysql" value="mysql" data-card-target="database" disabled/>
+                    <label class="radio" data-database-target="label" disabled>
+                      <input type="radio" name="database" data-action="database#selectMysql" value="mysql" data-database-target="database" disabled/>
                       Mysql
                     </label>
                   </div>
                   <div class="cell">
-                    <label class="radio" data-card-target="label" disabled>
-                      <input type="radio" name="database" data-action="card#selectTrilogy" value="trilogy" data-card-target="database" disabled/>
+                    <label class="radio" data-database-target="label" disabled>
+                      <input type="radio" name="database" data-action="database#selectTrilogy" value="trilogy" data-database-target="database" disabled/>
                       Trilogy
                     </label>
                   </div>

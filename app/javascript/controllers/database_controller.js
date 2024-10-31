@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="card"
+// Connects to data-controller="database"
 export default class extends Controller {
   static targets = [ "label", "database", "output", "icon", "cardContent" ]
   static values = { checked: Number, iconStatus: Number }
@@ -57,6 +57,8 @@ export default class extends Controller {
         }
       )
     }
+
+    this.dispatch("selection", { detail: { content: this.outputTarget.textContent }})
   }
 
   #disableRadios(disabled) {

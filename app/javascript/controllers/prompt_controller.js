@@ -3,10 +3,10 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="prompt"
 export default class extends Controller {
   static targets = [ "command" ]
-  static values = { database: String }
+  static values = { name: String, database: String }
 
   initialize () {
-    this.commandTarget.textContent = "rails new app"
+    this.commandTarget.textContent = `rails new ${this.#options()}`
   }
 
   updateDatabase({ detail: { content } }) {
@@ -14,8 +14,14 @@ export default class extends Controller {
   }
 
   databaseValueChanged () {
-    let options = [ this.databaseValue ].join(" ")
-    this.commandTarget.textContent = `rails new app ${options}`
+    this.commandTarget.textContent = `rails new ${this.#options()}`
+  }
+
+  #options () {
+    return [
+      this.nameValue,
+      this.databaseValue
+    ].join(" ")
   }
 
 }
